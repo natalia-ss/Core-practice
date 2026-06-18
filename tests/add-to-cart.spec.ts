@@ -18,7 +18,7 @@ test.beforeEach(async ({ page }) => {
 
 });
 
-test('Product can be added to cart from Home Page', async () =>{
+test('Product can be added to cart from Home Page', {tag: '@smoke'}, async () =>{
 
     await expect(homePage.header.cartLink).toContainText('1 item(s)')
 })
