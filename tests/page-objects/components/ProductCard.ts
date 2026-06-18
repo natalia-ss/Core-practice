@@ -1,4 +1,4 @@
-import {Page, Locator} from '@playwright/test';
+import {Locator} from '@playwright/test';
 
 export class ProductCard {
     container: Locator;
@@ -23,3 +23,4 @@ export class ProductCard {
         await this.productName.click();
     }
 }
+

@@ -1,32 +1,41 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from './page-objects/HomePage';
+import { CartPage } from './page-objects/CartPage';
 
 test.describe('Add to Cart ', () => {
+
+    let homePage: HomePage;
+    let cartPage: CartPage;
     
 test.beforeEach(async ({ page }) => {
 
-    await page.goto('https://raider-test-site.onrender.com/');
-    await page.locator('.product-card').filter({ hasText: 'Skinsheen Bronzer Stick' }).getByRole('button', { name: 'Add to Cart' }).click();
+    homePage = new HomePage(page, 'Skinsheen Bronzer Stick');
+    cartPage = new CartPage(page);
+
+    await homePage.goto();
+
+    await homePage.productCard.addToCart();
 
 });
 
-test('Product can be added to cart from Home Page', async ({page}) =>{
+test('Product can be added to cart from Home Page', async () =>{
 
-    await expect(page.getByRole('link', { name: /Cart/ })).toContainText('1 item(s)')
+    await expect(homePage.header.cartLink).toContainText('1 item(s)')
 })
 
-test('Product is visible in cart', async ({page}) =>{
+test('Product is visible in cart', async () =>{
 
-    await page.getByRole('link', { name: /Cart/ }).click(); 
+    await homePage.header.cartLink.click();
     
-    await expect(page.getByRole('cell', { name: '1' })).toBeVisible();
+    await expect(cartPage.quantityCell).toBeVisible();
 })
 
-test('Product can be removed from cart', async ({page}) =>{
+test('Product can be removed from cart', async () =>{
 
-    await page.getByRole('link', { name: /Cart/ }).click();
+    await homePage.header.cartLink.click();
 
-    await page.getByRole('button', { name: 'Remove' }).click();
+    await cartPage.removeItem.click();
 
-    await expect(page.getByRole('heading', { name: 'Your cart is empty' })).toBeVisible();
+    await expect(cartPage.emptyCartMessage).toBeVisible();
 })
 })
