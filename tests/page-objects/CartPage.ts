@@ -8,6 +8,7 @@ export class CartPage {
     emptyCartMessage: Locator;
     removeItem: Locator;
     quantityCell: Locator;
+    totalPrice: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -16,6 +17,7 @@ export class CartPage {
         this.emptyCartMessage = page.getByRole('heading', { name: 'Your cart is empty' });
         this.removeItem = page.getByRole('button', { name: 'Remove' });
         this.quantityCell = page.getByRole('cell', { name: '1' });
+        this.totalPrice = page.locator('.total-price');
     }
 
 }
