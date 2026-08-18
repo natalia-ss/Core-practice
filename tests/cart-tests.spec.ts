@@ -24,14 +24,14 @@ test('Product can be added to cart from Home Page', {tag: '@smoke'}, async () =>
     await expect(homePage.header.cartLink).toContainText('1 item(s)')
 })
 
-test('Product is visible in cart', async () =>{
+test('Product is visible in cart', async () => {
 
     await homePage.header.cartLink.click();
 
-    await expect(cartPage.quantityCell).toBeVisible();
+    await expect(cartPage.quantityCell('Skinsheen Bronzer Stick')).toBeVisible();
 })
 
-test('Product can be removed from cart', async () =>{
+test('Product can be removed from cart', async () => {
 
     await homePage.header.cartLink.click();
 
@@ -39,9 +39,10 @@ test('Product can be removed from cart', async () =>{
 
     await expect(cartPage.emptyCartMessage).toBeVisible();
 })
-test.only('Total price is correct', async ({page}) => {
 
-     const secondProduct = new ProductCard(
+test('Total price is correct', async ({ page }) => {
+
+    const secondProduct = new ProductCard(
         page.locator('.product-card').filter({ hasText: 'BeneFit Girl Meets Pearl' })
     );
     await secondProduct.addToCart();
