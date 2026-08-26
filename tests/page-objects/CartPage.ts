@@ -1,21 +1,23 @@
-import {Page, Locator} from '@playwright/test';
-//import { Header } from './components/header';
+import { Page, Locator } from '@playwright/test';
 
 export class CartPage {
     page: Page;
-    //header: Header;
     continueShoppingLink: Locator;
     emptyCartMessage: Locator;
     removeItem: Locator;
-    quantityCell: Locator;
+    totalPrice: Locator;
 
     constructor(page: Page) {
         this.page = page;
-        //this.header = new Header(page);
         this.continueShoppingLink = page.getByRole('link', { name: 'Continue Shopping' });
         this.emptyCartMessage = page.getByRole('heading', { name: 'Your cart is empty' });
         this.removeItem = page.getByRole('button', { name: 'Remove' });
-        this.quantityCell = page.getByRole('cell', { name: '1' });
+        this.totalPrice = page.locator('.total-price');
     }
 
+    quantityCell(productName: string): Locator {
+        return this.page.locator('tr').filter({
+            has: this.page.locator('.cart-item-name', { hasText: productName })
+        }).locator('td').nth(2);
+    }
 }
