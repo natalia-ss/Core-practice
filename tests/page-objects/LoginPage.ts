@@ -5,14 +5,16 @@ export class LoginPage {
   usernameInput: Locator;
   passwordInput: Locator;
   loginButton: Locator;
-  accountDetailsUsername: Locator;
+  welcomeMessage: Locator;
+  alertMessage: Locator;
 
     constructor(page: Page) { 
         this.page = page;   
         this.usernameInput = page.getByRole('textbox', { name: 'Login name' });
         this.passwordInput = page.getByRole('textbox', { name: 'Password' });
-        this.accountDetailsUsername = page.getByText('Username:');
+        this.welcomeMessage = page.locator('.welcome-msg');
         this.loginButton = page.getByRole('button', { name: 'Login' });
+        this.alertMessage = page.getByText('Error: Incorrect login or password provided.');
     }
 
     async login(username: string, password: string) {
@@ -20,6 +22,7 @@ export class LoginPage {
         await this.passwordInput.fill(password);
         await this.loginButton.click();
     }
+
 }
 
 
