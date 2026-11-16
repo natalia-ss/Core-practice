@@ -1,4 +1,5 @@
 import {Locator} from '@playwright/test';
+import {expect} from '@playwright/test';
 
 export class ProductCard {
     container: Locator;
@@ -21,6 +22,10 @@ export class ProductCard {
 
     async viewDetails() {
         await this.productName.click();
+    }
+
+    async haveScreenshot(name: string) {
+        await expect(this.container).toHaveScreenshot(name);
     }
 }
 
