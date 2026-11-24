@@ -18,9 +18,13 @@ export class CartPage {
         this.cartTable = page.locator('.cart-table');
     }
 
-    quantityCell(productName: string): Locator {
-        return this.page.locator('tr').filter({
-            has: this.page.locator('.cart-item-name', { hasText: productName })
-        }).locator('td').nth(2);
-    }
+  quantityCell(productName: string): Locator {
+    return this.page
+      .locator('tr')
+      .filter({
+        has: this.page.locator('.cart-item-name', { hasText: productName }),
+      })
+      .locator('td')
+      .nth(2);
+  }
 }
