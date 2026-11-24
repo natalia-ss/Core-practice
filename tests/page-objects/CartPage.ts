@@ -1,19 +1,22 @@
 import { Page, Locator } from '@playwright/test';
 
 export class CartPage {
-  page: Page;
-  continueShoppingLink: Locator;
-  emptyCartMessage: Locator;
-  removeItem: Locator;
-  totalPrice: Locator;
+    page: Page;
+    cartTable: Locator;
+    continueShoppingLink: Locator;
+    emptyCartMessage: Locator;
+    removeItem: Locator;
+    totalPrice: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
-    this.continueShoppingLink = page.getByRole('link', { name: 'Continue Shopping' });
-    this.emptyCartMessage = page.getByRole('heading', { name: 'Your cart is empty' });
-    this.removeItem = page.getByRole('button', { name: 'Remove' });
-    this.totalPrice = page.locator('.total-price');
-  }
+
+    constructor(page: Page) {
+        this.page = page;
+        this.continueShoppingLink = page.getByRole('link', { name: 'Continue Shopping' });
+        this.emptyCartMessage = page.getByRole('heading', { name: 'Your cart is empty' });
+        this.removeItem = page.getByRole('button', { name: 'Remove' });
+        this.totalPrice = page.locator('.total-price');
+        this.cartTable = page.locator('.cart-table');
+    }
 
   quantityCell(productName: string): Locator {
     return this.page

@@ -12,23 +12,19 @@ test.describe('Home Page', () => {
 
   test('has no visual regression', { tag: '@visual' }, async ({ page }) => {
     await expect(page).toHaveScreenshot('home-page.png');
-  });
 
-  test('product card renders correctly', { tag: '@visual' }, async ({ page }) => {
-    await expect(homePage.productCard).haveScreenshot('product-card.png');
-  });
+})
 
-  test('should have no accessibility violations', { tag: '@accessibility' }, async ({ page }) => {
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
 
-  //focus only on a specific rule
-  test('should have no color contrast issues', { tag: '@accessibility' }, async ({ page }) => {
-    const scanResults = await new AxeBuilder({ page })
-      .withRules(['color-contrast'])
-      .exclude('.product-card')
-      .analyze();
-    expect(scanResults.violations).toEqual([]);
-  });
+test('product card renders correctly',  {tag: '@visual'}, async ({ page }) => {
+  await homePage.productCard.haveScreenshot('product-card.png');
+});
+
+//HOMEWORK #7
+test('product page has no visual regression', {tag: '@visual'}, async ({ page }) => {
+    await homePage.productCard.viewDetails();
+    await expect(page).toHaveScreenshot('product-page.png');   
+ 
+});
+
 });

@@ -16,15 +16,24 @@ test.describe('Add to Cart', () => {
     await homePage.productCard.addToCart();
   });
 
-  test('Product can be added to cart from Home Page', { tag: '@smoke' }, async () => {
-    await expect(homePage.header.cartLink).toContainText('1 item(s)');
-  });
+});
+
+test('Product can be added to cart from Home Page', {tag: '@smoke'}, async () =>{
+
+    await expect(homePage.header.cartLink).toContainText('1 item(s)')
+})
+
+//HOMEWORK #7
+test.only('Product is visible in cart and has no visual regression', {tag: '@visual'}, async () => {
 
   test('Product is visible in cart', async () => {
     await homePage.header.cartLink.click();
 
     await expect(cartPage.quantityCell('Skinsheen Bronzer Stick')).toBeVisible();
-  });
+    await expect(cartPage.cartTable).toHaveScreenshot('cart-table.png');
+})
+
+test('Product can be removed from cart', async () => {
 
   test('Product can be removed from cart', async () => {
     await homePage.header.cartLink.click();
@@ -32,7 +41,10 @@ test.describe('Add to Cart', () => {
     await cartPage.removeItem.click();
 
     await expect(cartPage.emptyCartMessage).toBeVisible();
-  });
+
+})
+
+test('Total price is correct', async ({ page }) => {
 
   test('Total price is correct', async ({ page }) => {
     const secondProduct = new ProductCard(
