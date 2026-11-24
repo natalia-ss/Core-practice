@@ -2,10 +2,12 @@ import { Page, Locator } from '@playwright/test';
 
 export class CartPage {
     page: Page;
+    cartTable: Locator;
     continueShoppingLink: Locator;
     emptyCartMessage: Locator;
     removeItem: Locator;
     totalPrice: Locator;
+
 
     constructor(page: Page) {
         this.page = page;
@@ -13,6 +15,7 @@ export class CartPage {
         this.emptyCartMessage = page.getByRole('heading', { name: 'Your cart is empty' });
         this.removeItem = page.getByRole('button', { name: 'Remove' });
         this.totalPrice = page.locator('.total-price');
+        this.cartTable = page.locator('.cart-table');
     }
 
     quantityCell(productName: string): Locator {
